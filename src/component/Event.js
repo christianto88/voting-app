@@ -15,28 +15,43 @@ const styles = {
   }
 };
 class Event extends Component {
-  componentDidMount() {}
-  render() {
-    const { data, classes } = this.props;
+  // state = {
+  //   data: ""
+  // };
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {}
+    };
+  }
+  // async componentDidMount() {
+  //   const { data } = this.props;
+  //   console.log("props");
+  //   let x = await localStorage.getItem(data);
+  //   console.log("event", x);
+  //   this.setState({ data: JSON.parse(x) });
+  // }
+  render = () => {
+    const { event, classes } = this.props;
     console.log("render Event");
     return (
       <>
         <Grid item container direction="column" className={classes.event}>
           <Grid item>
             <Typography variant="h5" gutterBottom>
-              {data.name}
+              {event}
             </Typography>
           </Grid>
           <Grid item container justify="space-evenly" direction="column">
-            <VoteContainer data={data} />
+            <VoteContainer event={event} />
           </Grid>
           <Grid item>
-            <Timer />
+            <Timer event={event} />
           </Grid>
         </Grid>
       </>
     );
-  }
+  };
 }
 
 Event.propTypes = {

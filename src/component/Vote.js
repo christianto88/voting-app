@@ -8,7 +8,8 @@ import {
   Button,
   RadioGroup,
   FormControlLabel,
-  Radio
+  Radio,
+  Divider
 } from "@material-ui/core";
 const styles = theme => ({
   root: {
@@ -24,20 +25,7 @@ const styles = theme => ({
 });
 class Vote extends Component {
   state = {
-    // data: [],
     selected: ""
-  };
-  vote = () => {
-    let data = { ...this.state.data };
-    data.votes[0].value = data.votes[0].value + 100;
-    this.setState({ data });
-  };
-  checking = () => {
-    console.log("checking . . ");
-    if (this.state.count === 12) {
-      console.log("twelve");
-      clearInterval(this.state.timer);
-    }
   };
   handleChange = event => {
     this.setState({ selected: event.target.value });
@@ -46,40 +34,47 @@ class Vote extends Component {
     const { handleVote } = this.props;
     handleVote(this.state.selected);
   };
-  componentDidMount() {
-    console.log("vote did mount");
-    // const { data } = this.props;
-    // this.setState({ data });
-    // let t = setInterval(this.checking, 2000);
-    // this.setState({ timer: t });
-  }
-  componentDidUpdate() {
-    console.log("vote did update");
-    // this.setState({ timer: t });
-  }
   render() {
     const { classes, data } = this.props;
     console.log("render Vote");
     return (
       <>
-        <Grid item name="a" alignContent="center">
+        <Grid item name="a">
           <Paper>
             <RadioGroup
               className={classes.group}
-              value={this.state.value}
+              value={this.state.selected}
               onChange={this.handleChange}
             >
-              {data.votes
-                ? data.votes.map(el => (
-                    <FormControlLabel
-                      key={el.name}
-                      value={el.name}
-                      control={<Radio />}
-                      label={el.name}
-                    />
-                  ))
+              {data
+                ? Object.keys(data).map(el =>
+                    el !== "endDate" ? (
+                      <FormControlLabel
+                        key={data[el]["name"]}
+                        value={el}
+                        control={<Radio />}
+                        label={data[el]["name"]}
+                      />
+                    ) : (
+                      ""
+                    )
+                  )
                 : ""}
             </RadioGroup>
+          </Paper>
+        </Grid>
+        <Grid item>
+          <Paper>
+            {data
+              ? Object.keys(data).map(el => (
+                  <div key={el}>
+                    <span>
+                      {data[el]["name"]}:{data[el]["count"]}
+                    </span>
+                    <Divider />
+                  </div>
+                ))
+              : ""}
           </Paper>
         </Grid>
         <Grid item>

@@ -15,20 +15,20 @@ function TabContainer(props) {
 }
 class Main extends Component {
   state = {
-    value: 0,
-    data: [
-      {
-        name: "Pilpres 2019",
-        votes: [{ name: "jokowi", value: 50 }, { name: "prabowo", value: 47 }]
-      },
-      {
-        name: "FA cup round 4",
-        votes: [
-          { name: "manchester united", value: 150 },
-          { name: "arsenal", value: 47 }
-        ]
-      }
-    ]
+    value: 0
+    // data: [
+    //   {
+    //     name: "Pilpres 2019",
+    //     votes: [{ name: "jokowi", value: 50 }, { name: "prabowo", value: 47 }]
+    //   },
+    //   {
+    //     name: "FA cup round 4",
+    //     votes: [
+    //       { name: "manchester united", value: 150 },
+    //       { name: "arsenal", value: 47 }
+    //     ]
+    //   }
+    // ]
   };
 
   async componentDidMount() {
@@ -36,6 +36,34 @@ class Main extends Component {
       let a = await localStorage.getItem("votingapp");
       console.log("test", JSON.parse(a));
       this.setState({ data: JSON.parse(a) });
+      // await localStorage.setItem(
+      //   "pilpres2019",
+      //   JSON.stringify({
+      //     jokowi: {
+      //       name: "joko widodo",
+      //       count: 50
+      //     },
+      //     prabowo: {
+      //       name: "prabowo subianto",
+      //       count: 50
+      //     },
+      //     endDate: "2019-01-28T22:00:00Z"
+      //   })
+      // );
+      // await localStorage.setItem(
+      //   "facup4thround",
+      //   JSON.stringify({
+      //     arsenal: {
+      //       name: "arsenal fc",
+      //       count: 50
+      //     },
+      //     manchesterunited: {
+      //       name: "manchester united fc",
+      //       count: 50
+      //     },
+      //     endDate: "2019-01-28T22:00:00Z"
+      //   })
+      // );
     } else {
       localStorage.setItem(
         "votingapp",
@@ -73,12 +101,14 @@ class Main extends Component {
         <Grid container item direction="column" name="a">
           {value === 0 && (
             <TabContainer>
-              {this.state.data.map(el => (
-                <>
-                  <Event data={el} />
-                  <Divider />
-                </>
-              ))}
+              {this.state.data
+                ? this.state.data.map(el => (
+                    <div key={el}>
+                      <Event event={el} />
+                      <Divider />
+                    </div>
+                  ))
+                : ""}
             </TabContainer>
           )}
           {value === 1 && <TabContainer>Item Two</TabContainer>}
