@@ -15,7 +15,11 @@ class Timer extends Component {
   render() {
     const { classes } = this.props;
     console.log("render Timer");
-    return <Paper className={classes.root}>Timer: {this.state.time}</Paper>;
+    return (
+      // <Paper className={classes.root}>
+      <h1>Timer: {this.state.time}</h1>
+      // </Paper>
+    );
   }
 }
 

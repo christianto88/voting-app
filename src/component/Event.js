@@ -1,30 +1,40 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import { Grid } from "@material-ui/core";
+
+import { Grid, Typography } from "@material-ui/core";
 import Vote from "./Vote";
 import Timer from "./Timer";
+import VoteContainer from "../container/VoteContainer";
 const styles = {
   root: {
     flexGrow: 1
+  },
+  event: {
+    backgroundColor: "#f6f8fa"
   }
 };
 class Event extends Component {
+  componentDidMount() {}
   render() {
-    const { classes } = this.props;
+    const { data, classes } = this.props;
     console.log("render Event");
     return (
-      <div style={{ backgroundColor: "#f6f8fa", height: "100%" }}>
-        <Grid container direction="column">
+      <>
+        <Grid item container direction="column" className={classes.event}>
           <Grid item>
-            <Vote />
+            <Typography variant="h5" gutterBottom>
+              {data.name}
+            </Typography>
+          </Grid>
+          <Grid item container justify="space-evenly" direction="column">
+            <VoteContainer data={data} />
           </Grid>
           <Grid item>
             <Timer />
           </Grid>
         </Grid>
-      </div>
+      </>
     );
   }
 }
