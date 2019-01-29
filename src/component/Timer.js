@@ -15,7 +15,7 @@ class Timer extends Component {
   };
   checking = () => {
     console.log("checking . . ");
-    if (moment().isSameOrAfter("2019-01-28T16:05:20.567Z")) {
+    if (moment().isSameOrAfter("2019-01-29T16:05:20.567Z")) {
       console.log("clear interval");
       clearInterval(this.state.timer);
       this.setState({ ongoing: false });
@@ -25,9 +25,9 @@ class Timer extends Component {
     console.log("didmount");
     const { event } = this.props;
     // let temp = JSON.parse(await localStorage.getItem(event));
-    // this.setState({ time });
-    let t = setInterval(this.checking, 2000);
-    this.setState({ timer: t });
+    // this.setStaate({ time });
+    // let t = setInterval(this.checking, 2000);
+    // this.setState({ timer: t });
   }
   componentDidUpdate() {
     // this.setState({ timer: t });

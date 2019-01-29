@@ -48,7 +48,7 @@ class Vote extends Component {
             >
               {data
                 ? Object.keys(data).map(el =>
-                    el !== "endDate" ? (
+                    el !== "endDate" && el !== "event" ? (
                       <FormControlLabel
                         key={data[el]["name"]}
                         value={el}
@@ -66,14 +66,18 @@ class Vote extends Component {
         <Grid item>
           <Paper>
             {data
-              ? Object.keys(data).map(el => (
-                  <div key={el}>
-                    <span>
-                      {data[el]["name"]}:{data[el]["count"]}
-                    </span>
-                    <Divider />
-                  </div>
-                ))
+              ? Object.keys(data).map(el =>
+                  el !== "endDate" && el !== "event" ? (
+                    <div key={el}>
+                      <span>
+                        {data[el]["name"]} : {data[el]["count"]}
+                      </span>
+                      <Divider />
+                    </div>
+                  ) : (
+                    ""
+                  )
+                )
               : ""}
           </Paper>
         </Grid>
