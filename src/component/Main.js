@@ -3,7 +3,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
-import Event from "./Event";
 import {
   Grid,
   AppBar,
@@ -14,11 +13,8 @@ import {
   DialogContent,
   TextField,
   DialogActions,
-  Typography,
-  FormControl,
-  InputLabel,
-  Input
 } from "@material-ui/core";
+import * as moment from 'moment'
 import { DatePicker } from "material-ui-pickers";
 import EventContainer from "../container/EventContainer";
 
@@ -34,7 +30,7 @@ class Main extends Component {
   state = {
     value: 0,
     open: false,
-    selectedDate: new Date(),
+    selectedDate: moment().add(1, 'd'),
     form: {}
   };
 
@@ -58,13 +54,13 @@ class Main extends Component {
       handleSave(form, ongoing);
       this.setState({ open: false });
     } else {
-      this.setState({ open: false, form: {} });
+      this.setState({ open: false, form: {}, selectedDate: moment().add(1, 'd') });
     }
   };
 
   handleTextChange = event => {
     let form = { ...this.state.form };
-    form[event.target.name] = event.target.value;
+    form[event.target.name] = event.target.value.trim();
     this.setState({ form });
   };
 
@@ -73,7 +69,7 @@ class Main extends Component {
   };
 
   closeDialog = () => {
-    this.setState({ open: false, form: {} });
+    this.setState({ open: false, form: {}, selectedDate: moment().add(1, 'd') });
   };
 
   handleDateChange = date => {
@@ -82,7 +78,7 @@ class Main extends Component {
 
   render() {
     const { value } = this.state;
-    const { handleDelete } = this.props;
+    const { handleDelete,handleFinish } = this.props;
     console.log("render Main");
     return (
       <Grid container direction="column" justify="center">
@@ -123,6 +119,8 @@ class Main extends Component {
                 onChange={this.handleTextChange}
               />
               <DatePicker
+              minDate={moment().add(1, 'd')}
+                disablePast
                 format="DD MMMM YYYY"
                 margin="dense"
                 label="Pick End Date"
@@ -178,11 +176,11 @@ class Main extends Component {
             <TabContainer>
               {this.props.ongoing
                 ? this.props.ongoing.map(el => (
-                    <div key={el}>
-                      <EventContainer handleFinish={handleDelete} event={el} />
-                      <Divider />
-                    </div>
-                  ))
+                  <div key={el}>
+                    <EventContainer type="ongoing" handleFinish={handleFinish} handleDelete={handleDelete} event={el} />
+                    <Divider />
+                  </div>
+                ))
                 : ""}
             </TabContainer>
           )}
@@ -190,11 +188,11 @@ class Main extends Component {
             <TabContainer>
               {this.props.finished
                 ? this.props.finished.map(el => (
-                    <div key={el}>
-                      <EventContainer event={el} />
-                      <Divider />
-                    </div>
-                  ))
+                  <div key={el}>
+                    <EventContainer type="finished" event={el} />
+                    <Divider />
+                  </div>
+                ))
                 : ""}
             </TabContainer>
           )}

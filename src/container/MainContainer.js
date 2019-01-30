@@ -15,15 +15,29 @@ class MainContainer extends Component {
     await localStorage.setItem("ongoing", JSON.stringify(ongoing));
     this.setState({ ongoing });
   };
-  deleteEvent = async event => {
-    await localStorage.removeItem(event);
+  finishedEvent = async event => {
+    let finished = [...this.state.finished]
     let ongoing = [...this.state.ongoing];
-    console.log("a", ongoing.indexOf(event));
+
+    // if (finished) {
+    //   finished.push(event)
+    // } else {
+    //   finished=[event]
+    // }
+    finished.push(event)
     ongoing.splice(ongoing.indexOf(event), 1);
-    console.log("after slice", ongoing);
     await localStorage.setItem("ongoing", JSON.stringify(ongoing));
-    this.setState({ ongoing });
+    await localStorage.setItem('finished', JSON.stringify(finished))
+    this.setState({ ongoing,finished });
   };
+  deleteEvent=async (event)=>{
+    let ongoing = [...this.state.ongoing];
+    ongoing.splice(ongoing.indexOf(event), 1);
+    await localStorage.setItem("ongoing", JSON.stringify(ongoing));
+    await localStorage.removeItem(event)
+    this.setState({ ongoing });
+
+  }
   async componentDidMount() {
     let ongoing = JSON.parse(await localStorage.getItem("ongoing"));
     let finished = JSON.parse(await localStorage.getItem("finished"));
@@ -38,6 +52,7 @@ class MainContainer extends Component {
     return (
       <Main
         handleDelete={this.deleteEvent}
+        handleFinish={this.finishedEvent}
         handleSave={this.saveEvent}
         ongoing={this.state.ongoing}
         finished={this.state.finished}

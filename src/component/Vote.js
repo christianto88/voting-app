@@ -19,7 +19,7 @@ const styles = theme => ({
     margin: theme.spacing.unit * 3
   },
   group: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center"
   }
 });
@@ -39,8 +39,10 @@ class Vote extends Component {
     console.log("render Vote");
     return (
       <>
-        <Grid item name="a">
-          <Paper>
+        <Grid item container justify="center">
+        {/* <Paper> */}
+
+        <Grid item>
             <RadioGroup
               className={classes.group}
               value={this.state.selected}
@@ -61,10 +63,21 @@ class Vote extends Component {
                   )
                 : ""}
             </RadioGroup>
-          </Paper>
+        </Grid>
+        {/* </Paper> */}
         </Grid>
         <Grid item>
-          <Paper>
+          <Button
+            onClick={this.vote}
+            variant="contained"
+            color="primary"
+            size="medium"
+          >
+            Vote <ThumbIcon style={{ width: "25px", height: "20px" }} />
+          </Button>
+        </Grid>
+        <Grid item>
+          {/* <Paper> */}
             {data
               ? Object.keys(data).map(el =>
                   el !== "endDate" && el !== "event" ? (
@@ -72,25 +85,16 @@ class Vote extends Component {
                       <span>
                         {data[el]["name"]} : {data[el]["count"]}
                       </span>
-                      <Divider />
+                      {/* <Divider /> */}
                     </div>
                   ) : (
                     ""
                   )
                 )
               : ""}
-          </Paper>
+          {/* </Paper> */}
         </Grid>
-        <Grid item>
-          <Button
-            onClick={this.vote}
-            variant="contained"
-            color="primary"
-            size="small"
-          >
-            Vote <ThumbIcon style={{ width: "25px", height: "20px" }} />
-          </Button>
-        </Grid>
+       
         {/* <Grid item>Vote : {this.state.count}</Grid> */}
       </>
     );

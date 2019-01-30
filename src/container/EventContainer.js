@@ -4,9 +4,9 @@ import Event from "../component/Event";
 
 class EventContainer extends Component {
   render() {
-    const { event, handleFinish } = this.props;
+    const { event, handleFinish, handleDelete,type } = this.props;
     console.log("render event container");
-    return <Event handleFinish={handleFinish} event={event} />;
+    return type === 'ongoing' ? <Event handleFinish={handleFinish} handleDelete={handleDelete} event={event} /> : <Event type={type} event={event}></Event>;
   }
 }
 
