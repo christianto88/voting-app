@@ -69,7 +69,11 @@ class Event extends Component {
 }
 
 Event.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  event: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  handleFinish:PropTypes.func,
+  handleDelete:PropTypes.func
 };
 
 export default withStyles(styles)(Event);

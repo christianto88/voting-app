@@ -3,13 +3,11 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import ThumbIcon from "@material-ui/icons/ThumbUpAlt";
 import {
-  Paper,
   Grid,
   Button,
   RadioGroup,
   FormControlLabel,
   Radio,
-  Divider,
   Typography
 } from "@material-ui/core";
 const styles = theme => ({
@@ -88,7 +86,6 @@ class Vote extends Component {
                       <Typography>
                         {data[el]["name"]} : {data[el]["count"]}
                       </Typography>
-                      {/* <Divider /> */}
                     </div>
                   ) : (
                     ""
@@ -97,8 +94,6 @@ class Vote extends Component {
               : ""}
           </div>
         </Grid>
-       
-        {/* <Grid item>Vote : {this.state.count}</Grid> */}
       </>
     );
   }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import Main from "../component/Main";
 
 class MainContainer extends Component {
@@ -18,12 +17,6 @@ class MainContainer extends Component {
   finishedEvent = async event => {
     let finished = [...this.state.finished]
     let ongoing = [...this.state.ongoing];
-
-    // if (finished) {
-    //   finished.push(event)
-    // } else {
-    //   finished=[event]
-    // }
     finished.push(event)
     ongoing.splice(ongoing.indexOf(event), 1);
     await localStorage.setItem("ongoing", JSON.stringify(ongoing));
@@ -60,7 +53,5 @@ class MainContainer extends Component {
     );
   }
 }
-
-MainContainer.propTypes = {};
 
 export default MainContainer;

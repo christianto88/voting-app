@@ -37,7 +37,7 @@ class Timer extends Component {
     clearInterval(this.state.timer)
   }
   render() {
-    const { endDate,classes } = this.props;
+    const { classes } = this.props;
     console.log("render Timer");
     return (
         <Grid item >

@@ -11,7 +11,11 @@ class EventContainer extends Component {
 }
 
 EventContainer.propTypes = {
-  event: PropTypes.string.isRequired
+  event: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  handleFinish:PropTypes.func,
+  handleDelete:PropTypes.func
+
 };
 
 export default EventContainer;
