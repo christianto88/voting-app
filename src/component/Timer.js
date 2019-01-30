@@ -17,7 +17,7 @@ class Timer extends Component {
   };
   checking = () => {
     const { endDate,handleFinish} = this.props;    
-    console.log("checking . . ",endDate);
+    console.log("checking . . ");
     if (moment().isAfter(endDate)) {
       console.log("clear interval");
       clearInterval(this.state.timer);

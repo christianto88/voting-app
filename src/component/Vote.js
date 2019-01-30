@@ -9,11 +9,14 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  Divider
+  Divider,
+  Typography
 } from "@material-ui/core";
 const styles = theme => ({
   root: {
-    display: "flex"
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
   },
   formControl: {
     margin: theme.spacing.unit * 3
@@ -77,14 +80,14 @@ class Vote extends Component {
           </Button>
         </Grid>
         <Grid item>
-          {/* <Paper> */}
+          <div className={classes.root} >
             {data
               ? Object.keys(data).map(el =>
                   el !== "endDate" && el !== "event" ? (
                     <div key={el}>
-                      <span>
+                      <Typography>
                         {data[el]["name"]} : {data[el]["count"]}
-                      </span>
+                      </Typography>
                       {/* <Divider /> */}
                     </div>
                   ) : (
@@ -92,7 +95,7 @@ class Vote extends Component {
                   )
                 )
               : ""}
-          {/* </Paper> */}
+          </div>
         </Grid>
        
         {/* <Grid item>Vote : {this.state.count}</Grid> */}
